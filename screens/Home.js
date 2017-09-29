@@ -1,8 +1,7 @@
 import React from 'react';
 import { View, FlatList, Text, StyleSheet } from 'react-native';
 import { NavigationActions } from 'react-navigation';
-
-import { Row } from '../components';
+import { ListItem } from 'react-native-elements'
 
 const styles = StyleSheet.create({
   container: {
@@ -21,7 +20,7 @@ class HomeScreen extends React.Component {
   constructor(props){
     super(props);
     this.state = {
-      data: [],
+      shiftData: [],
     }
   }
 
@@ -31,6 +30,10 @@ class HomeScreen extends React.Component {
 
   componentDidMount() {
     this.fetchAppData();
+  }
+
+  componentDidUpdate() {
+    console.log(this.state.shiftData);
   }
 
   fetchAppData() {
@@ -47,8 +50,9 @@ class HomeScreen extends React.Component {
         style={styles.container}
         data={shiftData}
         keyExtractor={item => item.name}
-        renderItem={({ item }) => <Row
-          data={item}
+        renderItem={({ item }) => <ListItem
+          title={item.name}
+          subtitle={item.track}
           onPress={() => navigate('Detail', { sheduleItem: item })}
         />}
         renderSeparator={(sectionId, rowId) => <View key={rowId} style={styles.separator} />}

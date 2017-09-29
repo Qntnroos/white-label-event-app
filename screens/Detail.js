@@ -1,5 +1,6 @@
 import React from 'react';
 import { Text } from 'react-native';
+import { Card, SocialIcon } from 'react-native-elements';
 
 class DetailScreen extends React.Component {
 
@@ -10,7 +11,16 @@ class DetailScreen extends React.Component {
   render() {
     const { params } = this.props.navigation.state;
     return (
-      <Text>{params.sheduleItem.description}</Text>
+      <Card>
+        <Text style={{marginBottom: 10}}>
+          {params.sheduleItem.description}
+        </Text>
+        <SocialIcon
+          title={params.sheduleItem.speakers[0].contact.twitterHandle}
+          button
+          type='twitter'
+        />
+      </Card>
     );
   }
 }
