@@ -1,18 +1,22 @@
-import React from 'react';
-import { Text } from 'react-native';
+import React from "react";
+import { Text, View } from "react-native";
+import { Row } from "../components";
 
-class DetailScreen extends React.Component {
+const DetailScreen = ({
+  navigation: { state: { params } },
+  screenProps: { subscribe }
+}) => (
+  <View>
+    <Text>{params.scheduleItem.description}</Text>
+    <Row
+      title={"Subscribe"}
+      onPress={() => subscribe(params.scheduleItem.name)}
+    />
+  </View>
+);
 
-  static navigationOptions = ({ navigation }) => ({
-    title: navigation.state.params.sheduleItem.name,
-  });
-
-  render() {
-    const { params } = this.props.navigation.state;
-    return (
-      <Text>{params.sheduleItem.description}</Text>
-    );
-  }
-}
+DetailScreen.navigationOptions = ({ navigation }) => ({
+  title: navigation.state.params.scheduleItem.name
+});
 
 export default DetailScreen;
