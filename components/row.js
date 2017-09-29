@@ -15,7 +15,7 @@ const styles = StyleSheet.create({
 });
 
 const Row = (props) => (
-  <Button style={styles.container} title={props.data.title} onPress={props.onPress} />
+  <Button style={styles.container} title={props.data.name} onPress={props.onPress} />
 );
 
 export default Row;

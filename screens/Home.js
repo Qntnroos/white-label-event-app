@@ -18,20 +18,38 @@ const styles = StyleSheet.create({
 
 class HomeScreen extends React.Component {
 
+  constructor(props){
+    super(props);
+    this.state = {
+      data: [],
+    }
+  }
+
   static navigationOptions = {
     title: 'Shift',
   };
 
+  componentDidMount() {
+    this.fetchAppData();
+  }
+
+  fetchAppData() {
+    fetch('https://shift-api.k8s-staging.itpservices.be/v1/schedule')
+      .then(response => response.json())
+      .then(data => this.setState({ shiftData: data.data }))
+  }
+
   render() {
     const { navigate } = this.props.navigation;
+    const { shiftData } = this.state;
     return (
       <FlatList
         style={styles.container}
-        data={[{ title: 'Talk 1'}, { title: 'Talk 2'}]}
-        keyExtractor={item => item.title}
+        data={shiftData}
+        keyExtractor={item => item.name}
         renderItem={({ item }) => <Row
           data={item}
-          onPress={() => navigate('Detail', { name: item.title })}
+          onPress={() => navigate('Detail', { sheduleItem: item })}
         />}
         renderSeparator={(sectionId, rowId) => <View key={rowId} style={styles.separator} />}
       />

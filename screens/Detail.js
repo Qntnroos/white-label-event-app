@@ -4,13 +4,13 @@ import { Text } from 'react-native';
 class DetailScreen extends React.Component {
 
   static navigationOptions = ({ navigation }) => ({
-    title: navigation.state.params.name,
+    title: navigation.state.params.sheduleItem.name,
   });
 
   render() {
     const { params } = this.props.navigation.state;
     return (
-      <Text>{params.name}</Text>
+      <Text>{params.sheduleItem.description}</Text>
     );
   }
 }
