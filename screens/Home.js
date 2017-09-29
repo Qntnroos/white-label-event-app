@@ -1,5 +1,6 @@
 import React from 'react';
 import { View, FlatList, Text, StyleSheet } from 'react-native';
+import { NavigationActions } from 'react-navigation';
 
 import { Row } from '../components';
 

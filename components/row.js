@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { Button, Text, StyleSheet } from 'react-native';
 
 const styles = StyleSheet.create({
   container: {
@@ -15,11 +15,7 @@ const styles = StyleSheet.create({
 });
 
 const Row = (props) => (
-  <View style={styles.container}>
-    <Text style={styles.text}>
-      {props.data.title}
-    </Text>
-  </View>
+  <Button style={styles.container} title={props.data.title} onPress={props.onPress} />
 );
 
 export default Row;
