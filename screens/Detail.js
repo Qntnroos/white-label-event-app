@@ -1,28 +1,25 @@
-import React from 'react';
-import { Text } from 'react-native';
-import { Card, SocialIcon } from 'react-native-elements';
+import React from "react";
+import { Text, View } from "react-native";
+import { Row } from "../components";
+import { Card, SocialIcon, Button } from "react-native-elements";
 
-class DetailScreen extends React.Component {
+const DetailScreen = ({
+  navigation: { state: { params } },
+  screenProps: { subscribe }
+}) => (
+  <View>
+    <Text style={{ marginBottom: 10 }}>{params.scheduleItem.description}</Text>
+    <SocialIcon
+      title={params.scheduleItem.speakers[0].contact.twitterHandle}
+      button
+      type="twitter"
+    />
+    <Button raised icon={{ name: "cached" }} title="Subscribe" />
+  </View>
+);
 
-  static navigationOptions = ({ navigation }) => ({
-    title: navigation.state.params.sheduleItem.name,
-  });
-
-  render() {
-    const { params } = this.props.navigation.state;
-    return (
-      <Card>
-        <Text style={{marginBottom: 10}}>
-          {params.sheduleItem.description}
-        </Text>
-        <SocialIcon
-          title={params.sheduleItem.speakers[0].contact.twitterHandle}
-          button
-          type='twitter'
-        />
-      </Card>
-    );
-  }
-}
+DetailScreen.navigationOptions = ({ navigation }) => ({
+  title: navigation.state.params.scheduleItem.name
+});
 
 export default DetailScreen;
