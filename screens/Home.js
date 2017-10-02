@@ -1,7 +1,7 @@
 import React from "react";
 import { View, FlatList, Text, StyleSheet, Spinner } from "react-native";
 import { NavigationActions } from "react-navigation";
-import { ListItem } from "react-native-elements";
+import ShiftSchedule from "./ShiftSchedule";
 
 const styles = StyleSheet.create({
   container: {
@@ -15,23 +15,13 @@ const styles = StyleSheet.create({
   }
 });
 
-const HomeScreen = ({
-  navigation: { navigate },
-  screenProps: { shiftData }
-}) => (
+const HomeScreen = ({ screenProps: { shiftData }, navigation }) => (
   <FlatList
     style={styles.container}
     data={shiftData}
     keyExtractor={item => item.name}
     renderItem={({ item }) => (
-      <ListItem
-        title={item.name}
-        subtitle={item.track}
-        onPress={() => navigate("Detail", { scheduleItem: item })}
-        renderSeparator={(sectionId, rowId) => (
-          <View key={rowId} style={styles.separator} />
-        )}
-      />
+      <ShiftSchedule scheduleItem={item} navigation={navigation} />
     )}
   />
 );

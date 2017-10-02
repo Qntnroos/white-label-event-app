@@ -5,22 +5,41 @@ import { View, Text, StyleSheet } from "react-native";
 
 import {
   initializeFirebase,
-  listenFirebaseChanges,
-  subscribeToTrack
+  subscribeToTrack,
+  listenFirebaseChanges
 } from "./firebaseService";
+
+const firebaseRefs = {};
 
 const Navigator = StackNavigator({
   Home: { screen: HomeScreen },
   Detail: { screen: DetailScreen }
 });
 
+//should come from facebook login
+const CURRENT_USER_ID = "whatever";
+
 export default class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      shiftData: null
+      shiftData: null,
+      usersPerSchedule: {}
     };
   }
+
+  onChangeUsers = (snapshot, trackId) => {
+    const visitors = snapshot.val() && snapshot.val().userIds;
+    this.setState({
+      usersPerSchedule: { ...this.state.usersPerSchedule, [trackId]: visitors }
+    });
+  };
+
+  addShiftScheduleListener = trackId => {
+    const firebaseRef = listenFirebaseChanges(trackId);
+    firebaseRef.on("value", snapshot => this.onChangeUsers(snapshot, trackId));
+    firebaseRefs[trackId] = firebaseRef;
+  };
 
   componentWillMount() {
     initializeFirebase();
@@ -28,8 +47,19 @@ export default class App extends Component {
       .then(response => response.json())
       .then(data => {
         this.setState({ shiftData: data.data });
-        listenFirebaseChanges(data.data);
+        return data.data;
+      })
+      .then(shiftData => {
+        shiftData.forEach(shiftSchedule =>
+          this.addShiftScheduleListener(shiftSchedule.name)
+        );
       });
+  }
+
+  componentWillUnmount() {
+    Object.keys(firebaseRefs).forEach(trackId =>
+      firebaseRefs[firebaseRef].off("value", this.onChangeUsers)
+    );
   }
 
   render() {
@@ -38,7 +68,14 @@ export default class App extends Component {
         <Navigator
           screenProps={{
             shiftData: this.state.shiftData,
-            subscribe: trackId => subscribeToTrack(trackId, "jonathan")
+            onChangeSubscription: trackId =>
+              subscribeToTrack({
+                trackId,
+                currentUserId: CURRENT_USER_ID,
+                subscribedUsers: this.state.usersPerSchedule[trackId] || []
+              }),
+            userId: CURRENT_USER_ID,
+            usersPerSchedule: this.state.usersPerSchedule
           }}
         />
       </View>
