@@ -1,7 +1,7 @@
 import React from "react";
-import { View, FlatList, Text, StyleSheet, Spinner } from "react-native";
+import { View, FlatList, StyleSheet } from "react-native";
 import { NavigationActions } from "react-navigation";
-import { ListItem } from "react-native-elements";
+import { ListItem, Button } from "react-native-elements";
 
 const styles = StyleSheet.create({
   container: {
@@ -36,8 +36,9 @@ const HomeScreen = ({
   />
 );
 
-HomeScreen.navigationOptions = {
-  title: "Shift"
-};
+HomeScreen.navigationOptions = ({ navigation }) => ({
+  title: "Shift",
+  headerRight: <Button title="Account" onPress={() => navigation.navigate("User")} />,
+});
 
 export default HomeScreen;
