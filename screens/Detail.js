@@ -1,5 +1,5 @@
 import React from "react";
-import { Text, View } from "react-native";
+import { Text, View, Linking } from "react-native";
 import { NavigationActions } from "react-navigation";
 import { Row } from "../components";
 import { Card, SocialIcon, Button, Badge, Avatar } from "react-native-elements";
@@ -10,6 +10,7 @@ const DetailScreen = ({
 }) => {
   const users = usersPerSchedule[params.scheduleItem.name] || [];
   const isSubscribed = users.indexOf(userId) !== -1;
+  const twitterHandle = params.scheduleItem.speakers[0].contact.twitterHandle;
 
   return (
     <View>
@@ -17,9 +18,10 @@ const DetailScreen = ({
         {params.scheduleItem.description}
       </Text>
       <SocialIcon
-        title={params.scheduleItem.speakers[0].contact.twitterHandle}
+        title={twitterHandle}
         button
         type="twitter"
+        onPress={ () => Linking.openURL('https://twitter.com/' + twitterHandle)}
       />
       {userId ?
       <View>
