@@ -1,27 +1,23 @@
 import * as firebase from "firebase";
 import firebaseConfig from "./firebaseConfig";
 
-tracks = {};
-
-export function subscribeToTrack(trackId, userId) {
-  const userIds = tracks[trackId] ? [...tracks[trackId], userId] : [userId];
+export function subscribeToTrack({
+  trackId,
+  currentUserId,
+  subscribedUsers = []
+}) {
+  const userIds = [...subscribedUsers];
+  if (subscribedUsers.indexOf(currentUserId) !== -1) {
+    userIds.pop(currentUserId);
+  } else {
+    userIds.push(currentUserId);
+  }
 
   firebase
     .database()
     .ref("tracks/" + trackId)
     .set({
       userIds
-    });
-}
-
-//setup a listeners per track
-function setupTrackListener(trackId) {
-  firebase
-    .database()
-    .ref("tracks/" + trackId)
-    .on("value", snapshot => {
-      const highscore = snapshot.val().userIds;
-      console.log("New high score: " + highscore);
     });
 }
 
@@ -33,6 +29,7 @@ export function initializeFirebase() {
   firebase.initializeApp(firebaseConfig);
 }
 
-export function listenFirebaseChanges(data) {
-  console.log("data", data);
+// Returns a firebase Database reference
+export function listenFirebaseChanges(trackId) {
+  return firebase.database().ref("tracks/" + trackId);
 }
