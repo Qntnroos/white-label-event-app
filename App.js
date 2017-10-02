@@ -9,9 +9,11 @@ const FB_APP_ID = '937139713101714';
 
 import {
   initializeFirebase,
-  listenFirebaseChanges,
-  subscribeToTrack
+  subscribeToTrack,
+  listenFirebaseChanges
 } from "./firebaseService";
+
+const firebaseRefs = {};
 
 const Navigator = StackNavigator({
   Home: { screen: HomeScreen },
@@ -24,9 +26,23 @@ export default class App extends Component {
     super(props);
     this.state = {
       shiftData: null,
-      userInfo: null
+      userInfo: {},
+      usersPerSchedule: {},
     };
   }
+
+  onChangeUsers = (snapshot, trackId) => {
+    const visitors = snapshot.val() && snapshot.val().userIds;
+    this.setState({
+      usersPerSchedule: { ...this.state.usersPerSchedule, [trackId]: visitors }
+    });
+  };
+
+  addShiftScheduleListener = trackId => {
+    const firebaseRef = listenFirebaseChanges(trackId);
+    firebaseRef.on("value", snapshot => this.onChangeUsers(snapshot, trackId));
+    firebaseRefs[trackId] = firebaseRef;
+  };
 
   componentWillMount() {
     initializeFirebase();
@@ -34,8 +50,19 @@ export default class App extends Component {
       .then(response => response.json())
       .then(data => {
         this.setState({ shiftData: data.data });
-        listenFirebaseChanges(data.data);
+        return data.data;
+      })
+      .then(shiftData => {
+        shiftData.forEach(shiftSchedule =>
+          this.addShiftScheduleListener(shiftSchedule.name)
+        );
       });
+  }
+
+  componentWillUnmount() {
+    Object.keys(firebaseRefs).forEach(trackId =>
+      firebaseRefs[firebaseRef].off("value", this.onChangeUsers)
+    );
   }
 
   handleUserLogin = async() => {
@@ -55,14 +82,26 @@ export default class App extends Component {
   }
 
   render() {
+    const { userInfo } = this.state;
     return (
       <View style={styles.container}>
         <Navigator
           screenProps={{
             shiftData: this.state.shiftData,
+
             subscribe: trackId => subscribeToTrack(trackId, "jonathan"),
-            userInfo: this.state.userInfo,
+            userInfo,
             login: () => this.handleUserLogin(),
+
+            onChangeSubscription: trackId =>
+              subscribeToTrack({
+                trackId,
+                currentUserId: this.state.userInfo.id,
+                subscribedUsers: this.state.usersPerSchedule[trackId] || []
+              }),
+            userId: this.state.userInfo.id,
+            usersPerSchedule: this.state.usersPerSchedule
+
           }}
         />
       </View>

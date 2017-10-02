@@ -29,7 +29,7 @@ class UserScreen extends Component {
 
   render(){
     const { userInfo } = this.props.screenProps;
-    if(!userInfo){
+    if(!userInfo.id){
       return this.renderLoginButton();
     } else {
       return this.renderProfile();
