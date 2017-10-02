@@ -1,10 +1,11 @@
 import React from "react";
 import { Text, View } from "react-native";
+import { NavigationActions } from "react-navigation";
 import { Row } from "../components";
-import { Card, SocialIcon, Button } from "react-native-elements";
+import { Card, SocialIcon, Button, Badge, Avatar } from "react-native-elements";
 
 const DetailScreen = ({
-  navigation: { state: { params } },
+  navigation: { state: { params }, navigate },
   screenProps: { onChangeSubscription, usersPerSchedule, userId }
 }) => {
   const users = usersPerSchedule[params.scheduleItem.name] || [];
@@ -12,7 +13,7 @@ const DetailScreen = ({
 
   return (
     <View>
-      <Text style={{ marginBottom: 10 }}>
+      <Text style={{ margin: 32 }}>
         {params.scheduleItem.description}
       </Text>
       <SocialIcon
@@ -20,14 +21,25 @@ const DetailScreen = ({
         button
         type="twitter"
       />
+      {userId ?
+      <View>
+        <Button
+          raised
+          icon={{ name: "cached" }}
+          title={isSubscribed ? "Unsubscribe" : "Subscribe"}
+          onPress={() => onChangeSubscription(params.scheduleItem.name)}
+        />
+        <Badge containerStyle={{ margin: 32 }}>
+          <Text style={{ color: "#FFFFFF" }}>{"Attendees:" + users.length}</Text>
+        </Badge>
+      </View>
+      :
       <Button
         raised
-        icon={{ name: "cached" }}
-        title={isSubscribed ? "Unsubscribe" : "Subscribe"}
-        onPress={() => onChangeSubscription(params.scheduleItem.name)}
+        title="Login to subscribe"
+        onPress={() => navigate("User")}
       />
-      <Text>{"userId: " + userId} </Text>
-      <Text>{"users:" + users.length} </Text>
+      }
     </View>
   );
 };

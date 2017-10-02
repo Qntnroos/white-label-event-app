@@ -10,7 +10,7 @@ const FB_APP_ID = '937139713101714';
 import {
   initializeFirebase,
   subscribeToTrack,
-  listenFirebaseChanges
+  listenFirebaseChanges,
 } from "./firebaseService";
 
 const firebaseRefs = {};
@@ -100,7 +100,7 @@ export default class App extends Component {
                 subscribedUsers: this.state.usersPerSchedule[trackId] || []
               }),
             userId: this.state.userInfo.id,
-            usersPerSchedule: this.state.usersPerSchedule
+            usersPerSchedule: this.state.usersPerSchedule,
 
           }}
         />
