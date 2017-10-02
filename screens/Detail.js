@@ -14,7 +14,7 @@ const DetailScreen = ({
       button
       type="twitter"
     />
-    <Button raised icon={{ name: "cached" }} title="Subscribe" />
+    <Button raised icon={{ name: "cached" }} title="Subscribe" onPress={() => subscribe(params.scheduleItem.name)} />
   </View>
 );
 
