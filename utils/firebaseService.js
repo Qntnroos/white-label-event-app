@@ -1,6 +1,30 @@
 import * as firebase from 'firebase';
 import firebaseConfig from './firebaseConfig.json';
 
+export function initializeFirebase() {
+  // Initialize Firebase
+  if (!firebaseConfig) {
+    throw new Error('Add your own firebaseConfig.json file');
+  }
+  firebase.initializeApp(firebaseConfig);
+}
+
+export function testWriteFirebaseDatabase(name) {
+  firebase
+    .database()
+    .ref('metadata')
+    .set({ owner: name, workshop: 'Shift' });
+}
+
+export function testListenFirebaseDatabase() {
+  return firebase
+    .database()
+    .ref('metadata')
+    .on('value', (snapshot) => {
+      console.log('something changed to the database:', snapshot);
+    });
+}
+
 export function subscribeToTrack({ trackId, currentUserId, subscribedUsers = [] }) {
   const userIds = [...subscribedUsers];
   if (subscribedUsers.indexOf(currentUserId) !== -1) {
@@ -14,30 +38,6 @@ export function subscribeToTrack({ trackId, currentUserId, subscribedUsers = [] 
     .ref(`tracks/${trackId}`)
     .set({
       userIds,
-    });
-}
-
-export function initializeFirebase() {
-  // Initialize Firebase
-  if (!firebaseConfig) {
-    throw new Error('Add your own firebaseConfig.json file');
-  }
-  firebase.initializeApp(firebaseConfig);
-}
-
-export function testWriteFirebaseDatabase(name) {
-  firebase
-    .database()
-    .ref('metadata')
-    .set({ owner: name });
-}
-
-export function testListenFirebaseDatabase() {
-  return firebase
-    .database()
-    .ref('metadata')
-    .on('value', (snapshot) => {
-      console.log('something changed to the database:', snapshot);
     });
 }
 
