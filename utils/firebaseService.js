@@ -1,5 +1,5 @@
 import * as firebase from 'firebase';
-import firebaseConfig from './firebaseConfig';
+import firebaseConfig from './firebaseConfig.json';
 
 export function subscribeToTrack({ trackId, currentUserId, subscribedUsers = [] }) {
   const userIds = [...subscribedUsers];
@@ -23,6 +23,22 @@ export function initializeFirebase() {
     throw new Error('Add your own firebaseConfig.json file');
   }
   firebase.initializeApp(firebaseConfig);
+}
+
+export function testWriteFirebaseDatabase(name) {
+  firebase
+    .database()
+    .ref('metadata')
+    .set({ owner: name });
+}
+
+export function testListenFirebaseDatabase() {
+  return firebase
+    .database()
+    .ref('metadata')
+    .on('value', (snapshot) => {
+      console.log('something changed to the database:', snapshot);
+    });
 }
 
 // Returns a firebase Database reference

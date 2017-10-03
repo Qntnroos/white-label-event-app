@@ -24,9 +24,12 @@
 
 ### Why?
 
- * we give you some boilerplate code towards firebase
+ * We give you a minimum amount of boilerplate code concerning
+ 1. Firebase
+ 2. our Shift Facebook App
+ 3. our Shift API
 
- * we give you some boilerplate to authenticate to our facebook app
+ * We added some eslint setup, for the purpose of clean code
 
 ## Step 2
 ---------
@@ -40,5 +43,7 @@
 	* Add a Project (f.e.: shift-react-native-firebase)
 
 	* Edit firebaseConfig.json with your own config
+
+  * `npm install firebase --save`
 
  3. Implement Facebook Login
