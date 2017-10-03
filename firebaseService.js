@@ -1,10 +1,10 @@
-import * as firebase from "firebase";
-import firebaseConfig from "./firebaseConfig";
+import * as firebase from 'firebase';
+import firebaseConfig from './firebaseConfig';
 
 export function subscribeToTrack({
   trackId,
   currentUserId,
-  subscribedUsers = []
+  subscribedUsers = [],
 }) {
   const userIds = [...subscribedUsers];
   if (subscribedUsers.indexOf(currentUserId) !== -1) {
@@ -15,21 +15,21 @@ export function subscribeToTrack({
 
   firebase
     .database()
-    .ref("tracks/" + trackId)
+    .ref(`tracks/${trackId}`)
     .set({
-      userIds
+      userIds,
     });
 }
 
 export function initializeFirebase() {
   // Initialize Firebase
   if (!firebaseConfig) {
-    throw new Error("Add your own firebaseConfig.json file");
+    throw new Error('Add your own firebaseConfig.json file');
   }
   firebase.initializeApp(firebaseConfig);
 }
 
 // Returns a firebase Database reference
 export function listenFirebaseChanges(trackId) {
-  return firebase.database().ref("tracks/" + trackId);
+  return firebase.database().ref(`tracks/${trackId}`);
 }
