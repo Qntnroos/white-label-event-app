@@ -22,8 +22,23 @@
 
  * go to branch: `git checkout step-0-setup-react-native`
 
- ### Why?
+### Why?
 
  * we give you some boilerplate code towards firebase
 
  * we give you some boilerplate to authenticate to our facebook app
+
+## Step 2
+---------
+
+ 1. Starting point of the app: App.js
+
+ 2. Implement firebase
+
+	* [go to https://console.firebase.google.com](https://console.firebase.google.com)
+
+	* Add a Project (f.e.: shift-react-native-firebase)
+
+	* Edit firebaseConfig.json with your own config
+
+ 3. Implement Facebook Login

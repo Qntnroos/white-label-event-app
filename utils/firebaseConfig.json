@@ -1,6 +1,12 @@
 {
-  "apiKey": "AIzaSyCWlg7mm9hqddnpn-9PKAFtVZO9pQmZ2C0",
-  "authDomain": "shift-react-native-firebase.firebaseapp.com",
-  "databaseURL": "https://shift-react-native-firebase.firebaseio.com",
-  "storageBucket": "shift-react-native-firebase.appspot.com"
+  "HOW_TO": {
+    "STEP1" : "go to https://console.firebase.google.com",
+    "STEP2" : "add a new project",
+    "STEP3" : "click on add firebase for your webapp to find out below properties"
+  }
+},
+"apiKey": "<YOUR-API-KEY>",
+"authDomain": "<YOUR-AUTH-DOMAIN>",
+"databaseURL": "<YOUR-DATABASE-URL>",
+"storageBucket": "<YOUR-STORAGE-BUCKET>"
 }
