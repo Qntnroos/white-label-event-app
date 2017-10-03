@@ -88,8 +88,6 @@ export default class App extends Component {
         <Navigator
           screenProps={{
             shiftData: this.state.shiftData,
-
-            subscribe: trackId => subscribeToTrack(trackId, 'jonathan'),
             userInfo,
             login: () => this.handleUserLogin(),
 
