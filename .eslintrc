@@ -31,7 +31,7 @@
     "no-underscore-dangle": ["error", { "allow": ["_items"] }],
 
     // Import
-    "import/no-unresolved": ["error", { ignore: ['react', 'react-native', 'prop-types', 'teamleader-common', 'teamleader-core', 'teamleader-api'] }],
+    "import/no-unresolved": ["error", { ignore: ['react', 'react-native', 'prop-types'] }],
     "import/no-extraneous-dependencies": ["error", { "peerDependencies": true }],
     "import/extensions": "off",
 
