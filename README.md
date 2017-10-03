@@ -42,6 +42,17 @@
 
 	* Add a Project (f.e.: shift-react-native-firebase)
 
+  * Change Database read/write rules --DEV MODE ONLY--
+  
+  ```javascript
+      {
+        "rules": {
+          ".read": true,
+          ".write": true
+        }
+      }
+  ```  
+
 	* Edit firebaseConfig.json with your own config
 
   * `npm install firebase --save`
