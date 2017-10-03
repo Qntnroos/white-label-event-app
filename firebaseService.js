@@ -1,11 +1,7 @@
 import * as firebase from 'firebase';
 import firebaseConfig from './firebaseConfig';
 
-export function subscribeToTrack({
-  trackId,
-  currentUserId,
-  subscribedUsers = [],
-}) {
+export function subscribeToTrack({ trackId, currentUserId, subscribedUsers = [] }) {
   const userIds = [...subscribedUsers];
   if (subscribedUsers.indexOf(currentUserId) !== -1) {
     userIds.pop(currentUserId);
