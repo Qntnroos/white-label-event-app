@@ -1,9 +1,0 @@
-{
-  "expo": {
-    "sdkVersion": "21.0.0",
-    "icon": "./assets/shift.png",
-    "loading": {
-      "icon": "./assets/shift.png"
-    }
-  }
-}
