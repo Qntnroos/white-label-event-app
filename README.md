@@ -76,4 +76,9 @@
 
   * `npm install react-native-elements --save`
 
-  * @TODO Kevin :-)
+### Next steps
+
+  * Replace Flatlist Session with react-native-elements components ListItem
+  * State management to display detailpage
+  * Split render functions
+  * This is getting bulky, split up to screens/components
