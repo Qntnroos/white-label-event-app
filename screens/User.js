@@ -1,12 +1,32 @@
 import React, { Component } from 'react';
-import { Text, View } from 'react-native';
-import { Card, Button } from 'react-native-elements';
+import { Text, View, StyleSheet } from 'react-native';
+import { Avatar, Button } from 'react-native-elements';
+
+import { Header } from '../components';
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#000000',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  whiteText: {
+    color: 'white',
+    paddingLeft: 60,
+    paddingRight: 60,
+    paddingBottom: 60,
+  },
+});
 
 class UserScreen extends Component {
   renderLoginButton() {
     const { login } = this.props.screenProps;
     return (
-      <View>
+      <View style={styles.container}>
+        <Text style={styles.whiteText}>
+          Have a great day at Shift! Please login to subscribe for talsk & sessions troughout the day.
+        </Text>
         <Button title="Login" onPress={() => login()} />
       </View>
     );
@@ -15,14 +35,15 @@ class UserScreen extends Component {
   renderProfile() {
     const { userInfo } = this.props.screenProps;
     return (
-      <View>
-        <Card
-          image={{ uri: userInfo.picture.data.url }}
-        >
-          <Text style={{ marginBottom: 10 }}>
-            Have a great day at Shift!
-          </Text>
-        </Card>
+      <View style={styles.container}>
+        <Avatar
+          xlarge
+          rounded
+          source={{ uri: userInfo.picture.data.url }}
+        />
+        <Text style={styles.whiteText}>
+          Have a great day at Shift!
+        </Text>
       </View>
     );
   }
@@ -38,6 +59,7 @@ class UserScreen extends Component {
 
 UserScreen.navigationOptions = ({ navigation, screenProps }) => ({
   title: screenProps.userInfo ? screenProps.userInfo.name : 'Login',
+  header: <Header navigate={navigation.navigate} goBack={navigation.goBack} user />,
 });
 
 export default UserScreen;

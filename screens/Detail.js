@@ -1,6 +1,7 @@
 import React from 'react';
 import { Text, View, Linking } from 'react-native';
 import { SocialIcon, Button, Badge } from 'react-native-elements';
+import { Header } from '../components';
 
 const DetailScreen = ({
   navigation: { state: { params }, navigate },
@@ -46,6 +47,7 @@ const DetailScreen = ({
 
 DetailScreen.navigationOptions = ({ navigation }) => ({
   title: navigation.state.params.scheduleItem.name,
+  header: <Header navigate={navigation.navigate} goBack={navigation.goBack} />,
 });
 
 export default DetailScreen;

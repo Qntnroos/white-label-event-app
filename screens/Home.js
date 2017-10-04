@@ -2,6 +2,7 @@ import React from 'react';
 import { FlatList, StyleSheet } from 'react-native';
 import { Button } from 'react-native-elements';
 import ShiftSchedule from './ShiftSchedule';
+import { Header } from '../components';
 
 const styles = StyleSheet.create({
   container: {
@@ -23,7 +24,7 @@ const HomeScreen = ({ screenProps: { shiftData }, navigation }) => (
 
 HomeScreen.navigationOptions = ({ navigation }) => ({
   title: 'Shift',
-  headerRight: <Button title="Account" onPress={() => navigation.navigate('User')} />,
+  header: <Header navigate={navigation.navigate} />,
 });
 
 export default HomeScreen;
