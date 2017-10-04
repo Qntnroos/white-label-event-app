@@ -1,8 +1,8 @@
 import React from 'react';
-import { StyleSheet, Text, View, FlatList } from 'react-native';
+import Home from './screens/Home';
+import Detail from './screens/Detail';
 import { initializeFirebase, testWriteFirebaseDatabase, testListenFirebaseDatabase } from './utils/firebaseService';
 import getShiftData from './utils/shiftService';
-import Session from './components/Session';
 
 export default class App extends React.Component {
   constructor(props) {
@@ -10,6 +10,7 @@ export default class App extends React.Component {
     this.state = {
       metadata: null,
       shiftData: null,
+      detailItem: null,
     };
   }
 
@@ -26,23 +27,20 @@ export default class App extends React.Component {
     testWriteFirebaseDatabase('In The Pocket');
   }
 
+  onItemPress = item => this.setState({ detailItem: item })
+
+  onBackPress = () => this.setState({ detailItem: null })
+
+  renderHomePage() {
+    return <Home {...this.state} onItemPress={this.onItemPress} />;
+  }
+
+  renderDetailpage() {
+    return <Detail {...this.state} onBackPress={this.onBackPress} />;
+  }
+
   render() {
-    const { metadata, shiftData } = this.state;
-    return (
-      <View style={styles.container}>
-        <Text>{metadata && metadata.owner}</Text>
-        <Text>{metadata && metadata.workshop}</Text>
-        <FlatList data={shiftData} keyExtractor={item => item.name} renderItem={({ item }) => <Session key={item.name} session={item} />} />
-      </View>
-    );
+    const { detailItem } = this.state;
+    return !detailItem ? this.renderHomePage() : this.renderDetailpage();
   }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    marginTop: 40,
-    backgroundColor: '#fff',
-    justifyContent: 'center',
-  },
-});
