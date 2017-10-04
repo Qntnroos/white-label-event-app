@@ -46,8 +46,7 @@
 
   * Change Database read/write rules --DEV MODE ONLY--
 
-  ```javascript
-      {
+  ```{
         "rules": {
           ".read": true,
           ".write": true
