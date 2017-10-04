@@ -17,12 +17,7 @@ export function testWriteFirebaseDatabase(name) {
 }
 
 export function testListenFirebaseDatabase() {
-  return firebase
-    .database()
-    .ref('metadata')
-    .on('value', (snapshot) => {
-      console.log('something changed to the database:', snapshot);
-    });
+  return firebase.database().ref('metadata');
 }
 
 export function subscribeToTrack({ trackId, currentUserId, subscribedUsers = [] }) {
