@@ -43,7 +43,7 @@
 	* Add a Project (f.e.: shift-react-native-firebase)
 
   * Change Database read/write rules --DEV MODE ONLY--
-  
+
   ```javascript
       {
         "rules": {
@@ -57,4 +57,10 @@
 
   * `npm install firebase --save`
 
- 3. Implement Facebook Login
+  * test read/write to firebase with setState
+
+ 3. Get and show Shift API data
+
+  * call getShiftData and add to state
+
+  * add FlatList and create Session Component
