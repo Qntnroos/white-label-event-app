@@ -1,29 +1,40 @@
 import React from 'react';
-import { Text, View, Linking } from 'react-native';
-import { SocialIcon, Button, Badge } from 'react-native-elements';
+import { View, Linking } from 'react-native';
+import { Button, Badge, Card, List, ListItem, Text } from 'react-native-elements';
 import { Header } from '../components';
 
-const DetailScreen = ({
-  navigation: { state: { params }, navigate },
-  screenProps: { onChangeSubscription, usersPerSchedule, userId },
-}) => {
+const DetailScreen = ({ navigation: { state: { params }, navigate }, screenProps: { onChangeSubscription, usersPerSchedule, userId } }) => {
   const users = usersPerSchedule[params.scheduleItem.name] || [];
   const isSubscribed = users.indexOf(userId) !== -1;
-  const twitterHandle = params.scheduleItem.speakers[0].contact.twitterHandle;
 
   return (
-    <View>
-      <Text style={{ margin: 32 }}>
-        {params.scheduleItem.description}
-      </Text>
-      <SocialIcon
-        title={twitterHandle}
-        button
-        type="twitter"
-        onPress={() => Linking.openURL(`https://twitter.com/${twitterHandle}`)}
-      />
-      {userId ?
-        <View>
+    <View style={{ flex: 1, justifyContent: 'space-between', backgroundColor: 'white', padding: 30 }}>
+      <Card title={params.scheduleItem.name} style={{ flex: 1 }}>
+        <Text>{params.scheduleItem.description}</Text>
+        <View style={{ marginTop: 50 }}>
+          <Text h4>Speakers:</Text>
+          <List containerStyle={{ marginBottom: 20 }}>
+            {params.scheduleItem.speakers.map((l, i) => (
+              <ListItem
+                roundAvatar
+                avatar={{ uri: 'http://lorempixel.com/200/200/cats/' }}
+                key={l.name}
+                title={l.name}
+                subtitle={l.company}
+                onPress={() => Linking.openURL(`https://twitter.com/${l.contact.twitterHandle}`)}
+              />
+            ))}
+          </List>
+        </View>
+        <View style={{ marginTop: 50 }}>
+          <Text h4>
+            When: {params.scheduleItem.schedule.startTime} - {params.scheduleItem.schedule.endTime}
+          </Text>
+          <Text h4>Where: {params.scheduleItem.location}</Text>
+        </View>
+      </Card>
+      {userId ? (
+        <View style={{ flex: 1 }}>
           <Button
             raised
             icon={{ name: 'cached' }}
@@ -34,13 +45,9 @@ const DetailScreen = ({
             <Text style={{ color: '#FFFFFF' }}>{`Attendees:${users.length}`}</Text>
           </Badge>
         </View>
-        :
-        <Button
-          raised
-          title="Login to subscribe"
-          onPress={() => navigate('User')}
-        />
-      }
+      ) : (
+        <Button raised title="Login to subscribe" onPress={() => navigate('User')} />
+      )}
     </View>
   );
 };
