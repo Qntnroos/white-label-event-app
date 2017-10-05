@@ -34,7 +34,7 @@ const DetailScreen = ({ navigation: { state: { params }, navigate }, screenProps
         </View>
       </Card>
       {userId ? (
-        <View style={{ flex: 1 }}>
+        <View>
           <Button
             raised
             icon={{ name: 'cached' }}
