@@ -33,21 +33,21 @@ const DetailScreen = ({ navigation: { state: { params }, navigate }, screenProps
           <Text h4>Where: {params.scheduleItem.location}</Text>
         </View>
       </Card>
-      {userId ? (
-        <View>
+      <View>
+        <Badge containerStyle={{ margin: 32 }}>
+          <Text style={{ color: '#FFFFFF' }}>{`Attendees:${users.length}`}</Text>
+        </Badge>
+        {userId ? (
           <Button
             raised
             icon={{ name: 'cached' }}
             title={isSubscribed ? 'Unsubscribe' : 'Subscribe'}
             onPress={() => onChangeSubscription(params.scheduleItem.name)}
           />
-          <Badge containerStyle={{ margin: 32 }}>
-            <Text style={{ color: '#FFFFFF' }}>{`Attendees:${users.length}`}</Text>
-          </Badge>
-        </View>
-      ) : (
-        <Button raised title="Login to subscribe" onPress={() => navigate('User')} />
-      )}
+        ) : (
+          <Button raised title="Login to subscribe" onPress={() => navigate('User')} />
+        )}
+      </View>
     </View>
   );
 };
