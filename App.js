@@ -4,6 +4,15 @@ import { initializeFirebase, testWriteFirebaseDatabase, testListenFirebaseDataba
 import getShiftData from './utils/shiftService';
 import Session from './components/Session';
 
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    marginTop: 40,
+    backgroundColor: '#fff',
+    justifyContent: 'center',
+  },
+});
+
 export default class App extends React.Component {
   constructor(props) {
     super(props);
@@ -37,12 +46,3 @@ export default class App extends React.Component {
     );
   }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    marginTop: 40,
-    backgroundColor: '#fff',
-    justifyContent: 'center',
-  },
-});
