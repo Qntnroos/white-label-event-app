@@ -30,6 +30,10 @@
     "no-multiple-empty-lines": ["error", { "max": 1 }],
     "no-underscore-dangle": ["error", { "allow": ["_items"] }],
 
+    "jsx-a11y/href-no-hash": "off",
+    "jsx-a11y/anchor-is-valid": ["warn", { "aspects": ["invalidHref"] }],
+    "import/prefer-default-export": "off",
+
     // Import
     "import/no-unresolved": ["error", { ignore: ['react', 'react-native', 'prop-types'] }],
     "import/no-extraneous-dependencies": ["error", { "peerDependencies": true }],
@@ -53,6 +57,7 @@
   "globals": {
     "fetch": false,
     "alert": false,
+    "Expo": false
   },
   "settings": {
     "import/resolver": {

@@ -1,87 +1,66 @@
-import React, { Component } from "react";
-import { StackNavigator } from "react-navigation";
-import { HomeScreen, DetailScreen, UserScreen } from "./screens";
-import { View, StyleSheet } from "react-native";
-import * as firebase from "firebase";
-import { AuthSession } from "expo";
-
-const FB_APP_ID = "937139713101714";
-
-import {
-  initializeFirebase,
-  subscribeToTrack,
-  listenFirebaseChanges
-} from "./firebaseService";
-
-const firebaseRefs = {};
+import React, { Component } from 'react';
+import { StackNavigator } from 'react-navigation';
+import { View, StyleSheet } from 'react-native';
+import { HomeScreen, DetailScreen, UserScreen } from './screens';
+import { initializeFirebase, subscribeToTrack, listenFirebaseChanges } from './utils/firebaseService';
+import { handleUserLogin } from './utils/authenticationService';
+import getShiftData from './utils/shiftService';
 
 const Navigator = StackNavigator({
   Home: { screen: HomeScreen },
   Detail: { screen: DetailScreen },
-  User: { screen: UserScreen }
+  User: { screen: UserScreen },
+});
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
 });
 
 export default class App extends Component {
   constructor(props) {
     super(props);
+
+    this.firebaseRefs = {};
     this.state = {
-      shiftData: null,
+      shiftData: [],
       userInfo: {},
-      usersPerSchedule: {}
+      usersPerSchedule: {},
     };
+  }
+
+  componentWillMount() {
+    initializeFirebase();
+    getShiftData()
+      .then((response) => {
+        this.setState({ shiftData: response.data });
+        return response.data;
+      })
+      .then((shiftData) => {
+        shiftData.forEach((shiftSchedule) => {
+          const firebaseRef = listenFirebaseChanges(shiftSchedule.name);
+          firebaseRef.on('value', snapshot => this.onChangeUsers(snapshot, shiftSchedule.name));
+          this.firebaseRefs[shiftSchedule.name] = firebaseRef;
+        });
+      });
+  }
+
+  componentWillUnmount() {
+    Object.keys(this.firebaseRefs).forEach(trackId => this.firebaseRefs[trackId].off('value', this.onChangeUsers));
   }
 
   onChangeUsers = (snapshot, trackId) => {
     const visitors = snapshot.val() && snapshot.val().userIds;
     this.setState({
-      usersPerSchedule: { ...this.state.usersPerSchedule, [trackId]: visitors }
+      usersPerSchedule: { ...this.state.usersPerSchedule, [trackId]: visitors },
     });
-  };
-
-  addShiftScheduleListener = trackId => {
-    const firebaseRef = listenFirebaseChanges(trackId);
-    firebaseRef.on("value", snapshot => this.onChangeUsers(snapshot, trackId));
-    firebaseRefs[trackId] = firebaseRef;
   };
 
   handleUserLogin = async () => {
-    const {
-      type,
-      token
-    } = await Expo.Facebook.logInWithReadPermissionsAsync(FB_APP_ID, {
-      permissions: ["public_profile"],
-      behavior: "native"
-    });
-    if (type === "success") {
-      // Get the user's name using Facebook's Graph API
-      const userInfoResponse = await fetch(
-        `https://graph.facebook.com/me?access_token=${token}&fields=id,name,picture.type(large)`
-      );
-      const userInfo = await userInfoResponse.json();
-      this.setState({ userInfo });
-    }
+    const userInfo = await handleUserLogin();
+    this.setState({ userInfo });
   };
-
-  componentWillMount() {
-    initializeFirebase();
-    fetch("https://shift-api.k8s-staging.itpservices.be/v1/schedule")
-      .then(response => response.json())
-      .then(data => {
-        this.setState({ shiftData: data.data });
-        return data.data;
-      })
-      .then(shiftData => {
-        shiftData.forEach(shiftSchedule =>
-          this.addShiftScheduleListener(shiftSchedule.name)
-        );
-      });
-  }
-
-  componentWillUnmount() {
-    Object.keys(firebaseRefs).forEach(trackId =>
-      firebaseRefs[firebaseRef].off("value", this.onChangeUsers)
-    );
-  }
 
   render() {
     const { userInfo } = this.state;
@@ -92,24 +71,17 @@ export default class App extends Component {
             shiftData: this.state.shiftData,
             userInfo,
             login: () => this.handleUserLogin(),
-
             onChangeSubscription: trackId =>
               subscribeToTrack({
                 trackId,
                 currentUserId: this.state.userInfo.id,
-                subscribedUsers: this.state.usersPerSchedule[trackId] || []
+                subscribedUsers: this.state.usersPerSchedule[trackId] || [],
               }),
             userId: this.state.userInfo.id,
-            usersPerSchedule: this.state.usersPerSchedule
+            usersPerSchedule: this.state.usersPerSchedule,
           }}
         />
       </View>
     );
   }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1
-  }
-});

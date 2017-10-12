@@ -1,6 +1,5 @@
 import React from 'react';
 import { FlatList, StyleSheet } from 'react-native';
-import { Button } from 'react-native-elements';
 import ShiftSchedule from './ShiftSchedule';
 import { Header } from '../components';
 
@@ -16,9 +15,7 @@ const HomeScreen = ({ screenProps: { shiftData }, navigation }) => (
     style={styles.container}
     data={shiftData}
     keyExtractor={item => item.name}
-    renderItem={({ item }) => (
-      <ShiftSchedule scheduleItem={item} navigation={navigation} />
-    )}
+    renderItem={({ item }) => <ShiftSchedule scheduleItem={item} navigation={navigation} />}
   />
 );
 

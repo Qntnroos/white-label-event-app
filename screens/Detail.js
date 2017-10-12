@@ -26,7 +26,7 @@ const DetailScreen = ({ navigation: { state: { params }, navigate }, screenProps
             ))}
           </List>
         </View>
-        <View style={{ marginTop: 50 }}>
+        <View style={{ marginTop: 10 }}>
           <Text h4>
             When: {params.scheduleItem.schedule.startTime} - {params.scheduleItem.schedule.endTime}
           </Text>
