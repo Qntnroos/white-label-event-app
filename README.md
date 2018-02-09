@@ -6,7 +6,7 @@ The white label event app is an open source React Native app by [In The Pocket](
 ---------
 We have a backlog of features documented in the [Projects](https://github.com/inthepocket/white-label-event-app/projects/) tab of this repository, if you want to contribute, you can drag an issue into the progress column.
 
-We use *Git Flow*. Feature branches are branched from Develop, please use following naming convention for new branches:
+We use [*Git Flow*](https://guides.github.com/introduction/flow/). Feature branches are branched from Develop, please use following naming convention for new branches:
 `feature/[issueNmbr]-[issue_title_snake_cased]` i.e. `feature/123-write_great_code`.
 
 When you completed an issue, you can open a pull request to develop.
