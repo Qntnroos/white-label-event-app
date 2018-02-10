@@ -42,7 +42,7 @@ class UserScreen extends Component {
           source={{ uri: userInfo.picture.data.url }}
         />
         <Text style={styles.whiteText}>
-          Have a great day at Shift!
+          Have a great day at Shift {userInfo.first_name}!
         </Text>
       </View>
     );
