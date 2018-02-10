@@ -1,9 +1,9 @@
-const FB_APP_ID = '937139713101714';
+const FB_APP_ID = '2049634398613694';
 
 export const handleUserLogin = async () => {
   const { type, token } = await Expo.Facebook.logInWithReadPermissionsAsync(FB_APP_ID, {
     permissions: ['public_profile'],
-    behavior: 'native',
+    behavior: 'web',
   });
 
   if (type === 'success') {

@@ -1,4 +1,11 @@
+# Dependencies & build output
 node_modules/
 .expo/
 npm-debug.*
+
+# Sensitive info
 utils/firebaseConfig.json
+
+# OS specific
+.DS_Store
+Thumbs.db
