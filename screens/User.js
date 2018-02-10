@@ -25,7 +25,7 @@ class UserScreen extends Component {
     return (
       <View style={styles.container}>
         <Text style={styles.whiteText}>
-          Have a great day at Shift! Please login to subscribe for talsk & sessions troughout the day.
+          Have a great day at Shift! Please login to subscribe for talks & sessions troughout the day.
         </Text>
         <Button title="Login" onPress={() => login()} />
       </View>
