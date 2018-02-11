@@ -1,5 +1,5 @@
 {
-  "name": "white-label-event-app",
+  "name": "white-label-event-mobile-app",
   "version": "0.1.0",
   "private": true,
   "devDependencies": {
@@ -39,5 +39,29 @@
     "react-native": "^0.48.4",
     "react-native-elements": "^0.17.0",
     "react-navigation": "^1.0.0-beta.13"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/inthepocket/white-label-event-app"
+  },
+  "author": {
+    "email": "hello@inthepocket.com",
+    "name": "In The Pocket NV",
+    "url": "https://inthepocket.com"
+  },
+  "maintainers": [
+    {
+      "name": "Thibault Maekelbergh",
+      "email": "thibault.maekelbergh@inthepocket.com"
+    },
+    {
+      "name": "Kevin Meyvaert",
+      "email": "kevin.meyvaert@inthepocket.com"
+    },
+    {
+      "name": "Jonathan Dierckens",
+      "email": "jonathan.dierckens@inthepocket.com"
+    }
+  ],
+  "license": "MIT"
 }
