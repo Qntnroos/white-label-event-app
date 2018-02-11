@@ -40,4 +40,15 @@ When you completed an issue, you can open a pull request to develop.
 }
 ```
 
- * Edit `/utils/firebaseConfig.json` with your own config.
+ * Click on `add firebase for your webapp` to find out the properties: apiKey, authDomain, databaseURL, projectId.
+ * And add `/utils/firebaseConfig.json` with your own firebase config.
+ ```json
+ {
+   "apiKey": "<YOUR-API-KEY>",
+   "authDomain": "<YOUR-AUTH-DOMAIN>",
+   "databaseURL": "https://<YOUR-DATABASE-URL>.firebaseio.com",
+   "storageBucket": "<YOUR-STORAGE-BUCKET>",
+   "projectId": "<PROJECT-ID>",
+   "messagingSenderId": "<MESSAGING-SENDER-ID>"
+ }
+ ```

@@ -1,5 +1,5 @@
 {
-  "name": "White Label Event App",
+  "name": "white-label-event-app",
   "version": "0.1.0",
   "private": true,
   "devDependencies": {
@@ -25,12 +25,14 @@
     "test": "node node_modules/jest/bin/jest.js",
     "test:watch": "node node_modules/jest/bin/jest.js --watch",
     "lint": "eslint .",
-    "lint-fix": "eslint . --fix"
+    "lint-fix": "eslint . --fix",
+    "appr": "appr"
   },
   "jest": {
     "preset": "jest-expo"
   },
   "dependencies": {
+    "appr": "^1.1.1",
     "expo": "^21.0.0",
     "firebase": "^4.4.0",
     "react": "16.0.0-alpha.12",
