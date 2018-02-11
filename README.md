@@ -1,78 +1,43 @@
-# Give React Native a try: Setup your own React Native app
---------
+# white-label-event-app
 
-## Execute the following steps on the command line:
+The white label event app is an open source React Native app by [In The Pocket](https://inthepocket.mobi).
 
-* `npm install -g create-react-native-app`
+## Run the app
 
-* `create-react-native-app shift-react-native-firebase`
+You can run the latest build on the master branch via [Expo](https://expo.io/@itpocket/white-label-event-app).
 
-* `cd shift-react-native-firebase`
+![white-label-event-app on Expo](https://i.imgur.com/P2YdeMS.png)
 
-* `npm start`
+## How to contribute
 
-[cfr React Native - getting started guide](http://facebook.github.io/react-native/docs/getting-started.html)
+We have a backlog of features documented in the [Projects](https://github.com/inthepocket/white-label-event-app/projects/) tab of this repository, if you want to contribute, you can drag an issue into the progress column.
+
+We use [*Git Flow*](https://guides.github.com/introduction/flow/). Feature branches are branched from Develop, please use following naming convention for new branches:
+`feature/[issueNmbr]-[issue_title_snake_cased]` i.e. `feature/123-write_great_code`.
+
+When you completed an issue, you can open a pull request to develop.
+
+## Get Started
+
+ * Clone this repository: `git clone https://github.com/inthepocket/white-label-event-app.git`
+ * cd into folder: `cd white-label-event-app`
+ * Install dependencies `npm install`
+ * Run project `npm start`
 
 
-# The real thing: Start building the Shift App
----------
-## step-0-setup-react-native
----------
+## Setup & Hook a firebase database
 
- * clone this repository: `git clone https://bitbucket.org/kevinmeyvaert/shift-react-native-firebase.git`
+ * [go to https://console.firebase.google.com](https://console.firebase.google.com)
+ * Add a Project (for web) (f.e.: white-label-event-app)
+ * Change Database read/write rules --DEV MODE ONLY--
 
- * cd into folder: `cd shift-react-native-firebase`
+```json
+{
+  "rules": {
+    ".read": true,
+    ".write": true
+  }
+}
+```
 
- * go to branch: `git fetch && git checkout step-0-setup-react-native`
-
-### Why?
-
- * We give you a minimum amount of boilerplate code concerning
- 1. Firebase
- 2. our Shift API
- 3. our Shift Facebook App
-
- * We added some eslint setup, for the purpose of clean code
-
-### Next steps
-
- 1. Starting point of the app: App.js
-
- 2. Implement firebase
-
-	* [go to https://console.firebase.google.com](https://console.firebase.google.com)
-
-	* Add a Project (f.e.: shift-react-native-firebase)
-
-  * Change Database read/write rules --DEV MODE ONLY--
-
-  ```{
-        "rules": {
-          ".read": true,
-          ".write": true
-        }
-      }
-  ```  
-
-	* Edit firebaseConfig.json with your own config
-
-  * `npm install firebase --save`
-
-  * test read/write to firebase with setState
-
- 3. Get and show Shift API data
-
-  * call getShiftData and add to state/props
-
-  * create Session Component
-
-  * add FlatList
-
-## step1-style-components
----------
-
-  * `git fetch && git checkout step1-style-components`
-
-  * `npm install react-native-elements --save`
-
-  * @TODO Kevin :-)
+ * Edit `/utils/firebaseConfig.json` with your own config.
