@@ -1,4 +1,5 @@
 # white-label-event-app
+[![Build Status](https://travis-ci.org/inthepocket/white-label-event-app.svg?branch=develop)](https://travis-ci.org/inthepocket/white-label-event-app)
 
 The white label event app is an open source React Native app by [In The Pocket](https://inthepocket.mobi).
 
