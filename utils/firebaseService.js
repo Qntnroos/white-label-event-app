@@ -20,7 +20,7 @@ export function subscribeToTrack({ trackId, currentUserId, subscribedUsers = [] 
 export function initializeFirebase() {
   // Initialize Firebase
   if (!firebaseConfig || !firebaseConfig.apiKey || firebaseConfig.apiKey === '<YOUR-API-KEY>') {
-    throw new Error('Add your own firebaseConfig.json file');
+    throw new Error('Add your own firebaseConfig.json file in the folder /utils/firebaseConfig.json');
   }
   firebase.initializeApp(firebaseConfig);
 }
